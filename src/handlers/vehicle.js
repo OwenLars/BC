@@ -29,7 +29,37 @@ const Vehicle = {
 		
 		},
 
-	setEnterpriseName: () => {}
+	getBalance: () => {
+
+		let self = this;
+		return new Promise((resolve, reject) => {
+			self.instance
+				.then(vehicle => { return vehicle.balance(); })
+				.then (balance => { resolve (balance) })
+				.catch (error => { reject (error)})
+			});
+		
+		},
+	
+
+	updateBalance: () => {
+	
+	let self = this;
+    	return new Promise((resolve, reject) => {
+    	  window.web3.eth.getCoinbase()
+      	  .then((coinbase, error) => {
+       	   if (error) {
+         	   reject(error)
+         	 }
+         	 self.instance
+            .then(vehicle => { return vehicle.updateBalance({from: coinbase});})
+            .then(console.log)
+            .catch(console.error)
+        	})
+
+		});
+
+	}
 
 };
 

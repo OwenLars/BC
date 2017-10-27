@@ -5,17 +5,19 @@ contract Vehicle {
   /// "The class definition"
   
   string public enterpriseName;
-  string public legalRepresentativeName="Default";
-  string public carPlate="Default";
-  string public vehicleMark="Default";
-  uint numberOfAxles=0;
-  uint balance=0;
+  string public legalRepresentativeName;
+  string public carPlate;
+  string public vehicleMark;
+  uint public numberOfAxles;
+  uint public balance;
 
   address public owner = msg.sender;
 
   function Vehicle(){
 
-		enterpriseName="Default";
+		enterpriseName="Transportadora de Productos S.A";
+		balance=0;
+
   }
 
 
@@ -23,4 +25,11 @@ contract Vehicle {
     require(msg.sender == owner);
     _;
   }
+
+
+	function updateBalance () onlyOwner {
+    	balance=balance+1;
+  }
+
+
 }

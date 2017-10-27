@@ -1,23 +1,37 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+   
+   
+
 
 <form>
-  <div class="form-group">
+  <div class="form-group" style="text-align: left">
     <label for="enterpriseName">Nombre de la Compañia</label>
-    <input type="text" class="form-control" id="enterpriseName" v-model="name" aria-describedby="enterpriseNameHelp" placeholder="Nombre de la compañía u organización">
+    <input type="text" class="form-control" id="enterpriseName" v-model="name" aria-describedby="enterpriseNameHelp" placeholder="Nombre de la compañía u organización" readonly>
     <small id="enterpriseNameHelp" class="form-text text-muted">Nombre registrado de la compañia ante las autoridades competentes</small>
   </div>
+
+ <button type="button" @click="updateBalance">Ticket</button>
+
+
+
  
-<div class="form-group">
-    <label for="legalRepresentativeName">Nombre del respresentante legal</label>
-    <input type="email" class="form-control" id="legalRepresentativeName" aria-describedby="legalRepresentativeNameHelp" placeholder="Nombre del Representante Legal">
-    <small id="legalRepresentativeNameHelp" class="form-text text-muted">Nombre completo del representante legal</small>
+ <div class="form-group" style="text-align: left">
+
+    <label for="Balance">Ingresos (Tokens) </label>
+    <input type="text" class="form-control" id="Balance"  v-model="balance" aria-describedby="Balance" placeholder="Ingresos de la empresa transportadora">
+    <small id="Balance" class="form-text text-muted">Ingreso Contable</small>
   </div>
+
+ <button type="button" @click="getBalance">Comparación</button>
+
+
+<div class="alert alert-light" role="alert">
+  El número de ingresos proyectados para este APP fue de <a href="#" class="alert-link">1000</a></div>
+
  
   
-  <button type="button" class="btn btn-primary">Submit</button>
-</form>
+ </form>
 
 
     </div>
@@ -33,8 +47,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      msg: 'Sentinel Chain TODO: Welcome Message (Spanish) TODO: Logo',
-	  name: ''
+      name: '',
+	  balance: ''
     }
   },
   beforeCreate() {
@@ -43,7 +57,9 @@ export default {
 
   },
   mounted () {
-	this.getEnterpriseName()
+	this.getEnterpriseName();
+	this.updateBalance();
+	this.getBalance()
 
   },
 
@@ -52,28 +68,24 @@ export default {
 	getEnterpriseName() {
 		Vehicle.getEnterpriseName().then(name => this.name = name).catch(console.error);
 	
+	},
+
+	getBalance() {
+		
+		Vehicle.getBalance().then(balance => this.balance = balance).catch(console.error);
+	
+	},
+
+	updateBalance() {
+		
+		Vehicle.updateBalance().then(console.log).catch(console.error);
+
+	
 	}
+
+
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
 
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>

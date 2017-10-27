@@ -18,11 +18,19 @@ contract("Testing the Vehicle contract", function (accounts) {
 	describe("Checking enterprise name", function() {
 		it("Check the enterprise name was set properly", function() {
         	return vehicle.enterpriseName().then(function(response) {
-					       
-          	expect(response).to.be.equal("Default");
+		 	expect(response).to.be.equal("Transportadora de productos S.A");
         	});
       	});
 	});
+
+	describe("Checking enterprise balance", function() {
+		it("Check the global enterprise balance", function() {
+        	return vehicle.balance().then(function(response) {
+			expect(response.toString()).to.be.equal("0");
+        	});
+      	});
+	});
+
 
 });
 
